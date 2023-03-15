@@ -2,7 +2,7 @@
 Teksta Rediģēšanas Porgramma.
 # Teksta rediģēšanas projekts.
 Autori: Roberts Juris Sirmais, Maksims Petunovs, Daniels Smirnovs
-Teksta rediģēšanas programmas izveides posms
+# Teksta rediģēšanas programmas izveides posms
 
 1. Savākt nepieciešamo informāciju jeb plāna izveidošana
 2. Pirmais programmēšanas posms: teksta rediģēšanas programmas koda rakstīšana + testi/izmēģinājumi.
