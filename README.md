@@ -1,8 +1,8 @@
 # py-TextEditor-DP22
 Teksta Rediģēšanas Porgramma.
-Teksta rediģēšanas programmas izveides posms:
-#########################################333
-Autori: Roberts Juris Sirmais, Maksims Petunovs, Daniels Smirnovs.
+# Teksta rediģēšanas projekts.
+Autori: Roberts Juris Sirmais, Maksims Petunovs, Daniels Smirnovs
+Teksta rediģēšanas programmas izveides posms
 
 1. Savākt nepieciešamo informāciju jeb plāna izveidošana
 2. Pirmais programmēšanas posms: teksta rediģēšanas programmas koda rakstīšana + testi/izmēģinājumi.
