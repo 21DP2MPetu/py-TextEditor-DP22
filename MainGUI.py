@@ -41,15 +41,20 @@ class GUI:
     # TextArea
 
         textarea = tk.Text(master=main_frame, width=1980, height=1080)
+        textarea.pack()
 
     # Event Handlers
 
         def button_open_h(event):
             file_path = filedialog.askopenfilename()
+            textarea.delete("1.0", tk.END)
+            file_text = open(file_path, "r")
+            textarea.insert(tk.END, file_text.read())
+            file_text.close()
         button_open.bind("<Button-1>", button_open_h)
 
         def button_new_h(event):
-            textarea.pack(fill=tk.Y, side=tk.RIGHT)
+            textarea.delete("1.0", tk.END)
         button_new.bind("<Button-1>", button_new_h)
 
         def button_save_h(event):
