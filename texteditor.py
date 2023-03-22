@@ -3,60 +3,51 @@ import tkinter as tk
 from tkinter import filedialog
 
 class TextEditor:
-
     def ShowWindow():
 
     # Window/Window title
 
         window = tk.Tk()
-        # window.withdraw()
-        window.title("Text Editor: DEMO")
-
-    # Getting Screen Sizes
-
-        screen_width = window.winfo_screenwidth()
-        screen_height = window.winfo_screenheight()
-
-        def create_area(_master):
-            textarea = tk.Text(master=_master, width=screen_width , height=screen_height)
-            return textarea
-
-    # Window Size
+        window.title("Text Editor: Dev")
+        
+    # Window Size(Maximized, NOT Fullscreen)
 
         # window.attributes("-fullscreen", True)
         window.state("zoomed")
 
     # Frames
 
-        side_frame = tk.Frame(master=window, bg="red", height=screen_height)
-        side_frame.pack(side=tk.LEFT, fill=tk.Y)
+        frame = tk.Frame(master=window, bg="red", width=180, height=1080)
+        frame.pack(side=tk.LEFT, fill=tk.Y)
 
-        side_frame_01 = tk.Frame(master=side_frame, bg="green")
-        side_frame_01.pack()
-
-        # Main Frame hierarchy
-
-        main_frame = tk.Frame(master=window, bg="blue", height=screen_height, width=screen_width)
-        main_frame.pack(side=tk.RIGHT, fill=tk.Y)
+        frame_01 = tk.Frame(master=window, bg="blue", height=1080, width=1800)
+        frame_01.pack(side=tk.RIGHT, fill=tk.Y)
 
     # Buttons
 
-        button_open = tk.Button(text="Open File", master=side_frame_01)
-        # button_open.pack(fill=tk.Y, side=tk.LEFT)
-        button_open.pack()
+        button_open = tk.Button(text="Open File", master=frame)
+        button_open.pack(fill=tk.X)
 
-        button_new = tk.Button(text="New File", master=side_frame_01)
-        # button_new.pack(fill=tk.Y, side=tk.LEFT)
-        button_new.pack()
+        button_new = tk.Button(text="New File", master=frame)
+        button_new.pack(fill=tk.X)
 
-        button_save = tk.Button(text="Save File", master=side_frame_01)
-        # button_save.pack(fill=tk.Y, side=tk.LEFT)
-        button_save.pack()
+        button_save = tk.Button(text="Save File", master=frame)
+        button_save.pack(fill=tk.X)
+
+        button_about = tk.Button(text="About", master=frame)
+        button_about.pack(fill=tk.X)
+
+        #greeting0 = tk.Label(text="About Text Editor:")
+        #greeting1 = tk.Label(text="Name: Text Editor: Dev")
+        #greeting2 = tk.Label(text="Version: 0.1")
+        #greeting0.pack()
+        #greeting1.pack()
+        #greeting2.pack()
 
     # TextArea
-
-        textarea = tk.Text(master=main_frame, width=screen_width , height=screen_height)
-        # textarea.pack(fill=tk.Y, side=tk.RIGHT)
+    
+        textarea = tk.Text(master=frame_01, width=200, height=50)
+        textarea.pack(fill=tk.Y, side=tk.RIGHT)
 
     # Event Handlers
 
@@ -65,14 +56,29 @@ class TextEditor:
         button_open.bind("<Button-1>", button_open_h)
 
         def button_new_h(event):
-            textarea.destroy()
-            create_area(main_frame).pack(fill=tk.Y, side=tk.RIGHT)
-            
+            file_path = filedialog.askopenfilename()
         button_new.bind("<Button-1>", button_new_h)
 
         def button_save_h(event):
-            file_path = filedialog.asksaveasfilename(defaultextension=".txt")
+            file_path = filedialog.askopenfilename()
         button_save.bind("<Button-1>", button_save_h)
+
+        def about_button(event):
+            
+            root = tk.Tk()
+            root.title("About: Text Editor")
+            root.geometry("270x72")
+
+            about0 = tk.Label(root, text="Name: TEST(Under Construction)")
+            about1 = tk.Label(root, text="Version: Canary")
+            about2 = tk.Label(root, text="Year: Redacted")
+            about0.pack()
+            about1.pack()
+            about2.pack()
+
+            root.mainloop
+
+        button_about.bind("<Button-1>", about_button)
 
     #  Close Window
 
