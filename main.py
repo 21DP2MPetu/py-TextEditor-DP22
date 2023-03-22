@@ -1,4 +1,5 @@
 
-import texteditor as t
+import texteditor
 
-t.TextEditor.ShowWindow()
+text_editor = texteditor.TextEditor
+text_editor.ShowWindow()
