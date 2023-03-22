@@ -17,6 +17,10 @@ class TextEditor:
         screen_width = window.winfo_screenwidth()
         screen_height = window.winfo_screenheight()
 
+        def create_area(_master):
+            textarea = tk.Text(master=_master, width=screen_width , height=screen_height)
+            return textarea
+
     # Window Size
 
         # window.attributes("-fullscreen", True)
@@ -52,7 +56,7 @@ class TextEditor:
     # TextArea
 
         textarea = tk.Text(master=main_frame, width=screen_width , height=screen_height)
-        textarea.pack(fill=tk.Y, side=tk.RIGHT)
+        # textarea.pack(fill=tk.Y, side=tk.RIGHT)
 
     # Event Handlers
 
@@ -61,7 +65,9 @@ class TextEditor:
         button_open.bind("<Button-1>", button_open_h)
 
         def button_new_h(event):
-            file_path = filedialog.askdirectory(title='Select Folder')
+            textarea.destroy()
+            create_area(main_frame).pack(fill=tk.Y, side=tk.RIGHT)
+            
         button_new.bind("<Button-1>", button_new_h)
 
         def button_save_h(event):
