@@ -9,7 +9,7 @@ class TextEditor:
 
         window = tk.Tk()
         window.title("Text Editor: Dev")
-
+        
     # Window Size(Maximized, NOT Fullscreen)
 
         # window.attributes("-fullscreen", True)
@@ -45,7 +45,7 @@ class TextEditor:
         #greeting2.pack()
 
     # TextArea
-
+    
         textarea = tk.Text(master=frame_01, width=200, height=50)
         textarea.pack(fill=tk.Y, side=tk.RIGHT)
 

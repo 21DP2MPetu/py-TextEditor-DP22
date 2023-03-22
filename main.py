@@ -1,4 +1,8 @@
 
-import texteditor as t
+import tkinter as tk
+import texteditor
+import MainGUI
 
-t.TextEditor.ShowWindow()
+root = tk.Tk()
+window = MainGUI.GUI(root)
+root.mainloop()
