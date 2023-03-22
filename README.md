@@ -11,7 +11,7 @@ Autori: Roberts Juris Sirmais, Maksims Petunovs, Daniels Smirnovs
 5. Tad programmu pilnīgi izmēģināt UN Ja testi/izmēģinājumi ir veiksmīgi tad domāt ko darīt tālāk.
 iespējamās funkcijas ko var pievienot Teksta Rediģēšanas programmā:
   - Kalkulators
-  - Pūlkstens(Rādīt pareizo laiku)
+  - ### Pūlkstens(Rādīt pareizo laiku) ###
   -
   ...
   
