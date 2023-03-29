@@ -47,6 +47,8 @@ class GUI:
 
         def button_open_h(event):
             file_path = filedialog.askopenfilename()
+            if not file_path:
+                return
             textarea.delete("1.0", tk.END)
             file_text = open(file_path, "r")
             textarea.insert(tk.END, file_text.read())
@@ -59,6 +61,12 @@ class GUI:
 
         def button_save_h(event):
             file_path = filedialog.asksaveasfilename(defaultextension=".txt")
+            if not file_path:
+                return
+            file_text = open(file_path, mode="w", encoding="utf=8")
+            text = textarea.get("1.0", tk.END)
+            file_text.write(text)
+
         button_save.bind("<Button-1>", button_save_h)
 
         def about_button(event):
