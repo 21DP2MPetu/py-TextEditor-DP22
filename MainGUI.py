@@ -11,9 +11,15 @@ class GUI:
     # Attributes
         self.root = root
         # self.root.state("zoomed")
-        self.root.geometry("750x250")
+        self.root.geometry("1600x900")
         self.root.title("Tt-Edit: BETA")
         self.root.configure(bg="#e0e0e0")
+
+        photo = tk.PhotoImage(file = "icon.png")
+        self.root.iconphoto(False, photo)
+
+        # window = tk.Toplevel(self.root)
+        # window.mainloop()
 
     #  Getting screen sizes
         SCREEN_HEIGHT = self.root.winfo_screenheight()
@@ -68,14 +74,32 @@ class GUI:
             
             root = tk.Tk()
             root.title("About: Text Editor")
-            root.geometry("270x72")
+            root.geometry("270x280")
 
-            about0 = tk.Label(root, text="Name: Text Editor: Beta")
+            about0 = tk.Label(root, text="Name: Tt-Edit: Beta")
             about1 = tk.Label(root, text="Version: Beta")
-            about2 = tk.Label(root, text="Year: 2023")
+            # about2 = tk.Label(root, text="Year: 2023 (placeholder:Copyright © 2023)")
+            about3 = tk.Label(root, text="Year: 2023")
+            about4 = tk.Label(root, text="################")
+            about5 = tk.Label(root, text="")
+            about6 = tk.Label(root, text="Notes:")
+            about7 = tk.Label(root, text="Since this Program is in Beta stage", fg='#b87070')
+            about8 = tk.Label(root, text="And is still in Development...", fg='#b87070')
+            about9 = tk.Label(root, text="Use this program at your own risk!", fg='#b87070')
+            about10 = tk.Label(root, text="")
+            about11 = tk.Label(root, text="################")
             about0.pack()
             about1.pack()
-            about2.pack()
+            # about2.pack()
+            about3.pack()
+            about4.pack()
+            about5.pack()
+            about6.pack()
+            about7.pack()
+            about8.pack()
+            about9.pack()
+            about10.pack()
+            about11.pack()
 
             root.mainloop
 
@@ -144,6 +168,9 @@ class GUI:
 
         button_about = tk.Button(text="About", master=side_frame, width=8, command=about_button)
         button_about.grid(row=3, column=0, sticky="W", pady=1)
+
+        butoon_exit = tk.Button(text="Exit", master=side_frame, width=8, command=exit)
+        butoon_exit.grid(row=4, column=0, sticky="W", pady=1)
 
     # TextArea
 
