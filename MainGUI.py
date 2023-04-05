@@ -3,6 +3,7 @@ import os
 from tkinter import filedialog
 
 GLOBAL_COUNTER = 0
+PATH_ARRAY = []
 
 class GUI:
     
@@ -20,21 +21,27 @@ class GUI:
 
     # Event Handlers
 
+        def GetPathToOpen():
+            path = filedialog.askopenfilename()
+            if not path:
+                return
+            return path
+
         # Open file system
 
         def button_open_h():
             global GLOBAL_COUNTER
-            file_path = filedialog.askopenfilename()
-            if not file_path:
-                return
+            global PATH_ARRAY
+            file_path = GetPathToOpen()
+            PATH_ARRAY.append(file_path)
             file_text = open(file_path, "r")
+            textarea.delete("1.0", tk.END)
             create_area(file_text)
             file_text.close()
             file_name = os.path.basename(file_path) # os.path.basename()
             tab = create_tab(file_name, GLOBAL_COUNTER)
-            tab.destroy()
             GLOBAL_COUNTER += 1
-            self.root.title(file_name)
+            # self.root.title(file_name)
 
         # New file system
 
@@ -43,7 +50,7 @@ class GUI:
             create_area()
             create_tab("New file", GLOBAL_COUNTER)
             GLOBAL_COUNTER += 1
-            self.root.title("New File")
+            # self.root.title("New file")
 
         # Save file system
 
@@ -75,19 +82,29 @@ class GUI:
         # Create Tab
 
         def create_tab(tab_name, position):
-
+            
+            global PATH_ARRAY
+    
             label = tk.Label(master=tab_frame, text=tab_name, foreground="black", background="#d7dbe0", width=20)
             label.grid(row=0, column=position, padx=1)
-            return label
+            def label_close(event):
+                if label.cget("text") == "New file":
+                    label.destroy()
+                for i in range(len(PATH_ARRAY)):
+                    if label.cget("text") == os.path.basename(PATH_ARRAY[i]):
+                        label.destroy()
+                        del PATH_ARRAY[i]
+                        textarea.delete("1.0", tk.END)
+
+            label.bind("<Button-3>", label_close)
 
         # Create Area
 
         def create_area(file_text=None):
-
-            textarea = tk.Text(master=area_frame, width=SCREEN_WIDTH, height=SCREEN_HEIGHT)
             if file_text != None:
                 textarea.insert(tk.END, file_text.read())
-            textarea.pack()
+            else:
+                textarea.delete("1.0", tk.END)
 
 
     # Frames
@@ -132,8 +149,8 @@ class GUI:
 
         # Area textarea
 
-        # textarea = tk.Text(master=area_frame, width=SCREEN_WIDTH, height=SCREEN_WIDTH)
-        # textarea.pack()
+        textarea = tk.Text(master=area_frame, width=SCREEN_WIDTH, height=SCREEN_HEIGHT)
+        textarea.pack()
 
     def removethis(self):
         self.frame.destroy()
