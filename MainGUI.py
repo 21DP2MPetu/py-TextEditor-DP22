@@ -1,51 +1,26 @@
 import tkinter as tk
+import os
 from tkinter import filedialog
 
 class GUI:
-
+    
     def __init__(self, root):
     # Attributes
         self.root = root
-        self.root.state("zoomed")
+        # self.root.state("zoomed")
+        self.root.geometry("750x250")
         self.root.title("Text Editor: DEMO")
+        self.root.configure(bg="#e0e0e0")
 
-    # Frames
-
-        # Side Frame hierarchy
-
-        side_frame = tk.Frame(master=self.root, height=1080, width=1980)
-        side_frame.pack(side=tk.LEFT, fill=tk.Y)
-
-        side_frame_01 = tk.Frame(master=side_frame)
-        side_frame_01.pack()
-
-        # Main Frame hierarchy
-
-        main_frame = tk.Frame(master=self.root, height=1080, width=1980)
-        main_frame.pack(side=tk.RIGHT, fill=tk.Y)
-
-    # Buttons
-
-        button_open = tk.Button(text="Open File", master=side_frame_01)
-        button_open.pack(fill=tk.X)
-
-        button_new = tk.Button(text="New File", master=side_frame_01)
-        button_new.pack(fill=tk.X)
-
-        button_save = tk.Button(text="Save File", master=side_frame_01)
-        button_save.pack(fill=tk.X)
-
-        button_about = tk.Button(text="About", master=side_frame_01)
-        button_about.pack(fill=tk.X)
-
-    # TextArea
-
-        textarea = tk.Text(master=main_frame, width=1980, height=1080)
-        textarea.pack()
+    #  Getting screen sizes
+        SCREEN_HEIGHT = self.root.winfo_screenheight()
+        SCREEN_WIDTH = self.root.winfo_screenwidth()
 
     # Event Handlers
 
-        def button_open_h(event):
+        # Open file system
+
+        def button_open_h():
             file_path = filedialog.askopenfilename()
             if not file_path:
                 return
@@ -53,13 +28,20 @@ class GUI:
             file_text = open(file_path, "r")
             textarea.insert(tk.END, file_text.read())
             file_text.close()
-        button_open.bind("<Button-1>", button_open_h)
+            file_name = os.path.basename(file_path) # os.path.basename()
+            create_tab(file_name)
+            self.root.title(file_name)
 
-        def button_new_h(event):
+        # New file system
+
+        def button_new_h():
             textarea.delete("1.0", tk.END)
-        button_new.bind("<Button-1>", button_new_h)
+            create_tab("New file")
+            self.root.title("New File")
 
-        def button_save_h(event):
+        # Save file system
+
+        def button_save_h():
             file_path = filedialog.asksaveasfilename(defaultextension=".txt")
             if not file_path:
                 return
@@ -67,16 +49,16 @@ class GUI:
             text = textarea.get("1.0", tk.END)
             file_text.write(text)
 
-        button_save.bind("<Button-1>", button_save_h)
+        # About button handler
 
-        def about_button(event):
+        def about_button():
             
             root = tk.Tk()
             root.title("About: Text Editor")
             root.geometry("270x72")
 
-            about0 = tk.Label(root, text="Name: Text Editor: Canary")
-            about1 = tk.Label(root, text="Version: Canary")
+            about0 = tk.Label(root, text="Name: Text Editor: Beta")
+            about1 = tk.Label(root, text="Version: Beta")
             about2 = tk.Label(root, text="Year: 2023")
             about0.pack()
             about1.pack()
@@ -84,7 +66,61 @@ class GUI:
 
             root.mainloop
 
-        button_about.bind("<Button-1>", about_button)
+        # Create Tab
+
+        def create_tab(tab_name):
+
+            tk.Label(master=tab_frame, text=tab_name, foreground="black", background="#d7dbe0", width=10).grid(row=0, column=0, padx=1)
+
+    # Frames
+
+        # Side Frame hierarchy
+
+        side_frame = tk.Frame(master=self.root)
+        side_frame.pack(side=tk.LEFT)
+
+        # Main Frame hierarchy (Tabs, Area)
+
+        main_frame = tk.Frame(master=self.root)
+        main_frame.pack()
+
+        # Tabs Frame
+
+        tab_frame = tk.Frame(master=main_frame)
+        tab_frame.pack()
+
+        # Area Frame
+
+        area_frame = tk.Frame(master=main_frame)
+        area_frame.pack(side=tk.BOTTOM, fill=tk.Y)
+
+    # Buttons
+
+        # Side buttons
+
+        button_open = tk.Button(text="Open File", master=side_frame, width=8, command=button_open_h)
+        button_open.grid(row=0, column=0, sticky="W", pady=1)
+
+        button_new = tk.Button(text="New File", master=side_frame, width=8, command=button_new_h)
+        button_new.grid(row=1, column=0, sticky="W", pady=1)
+
+        button_save = tk.Button(text="Save File", master=side_frame, width=8, command=button_save_h)
+        button_save.grid(row=2, column=0, sticky="W", pady=1)
+
+        button_about = tk.Button(text="About", master=side_frame, width=8, command=about_button)
+        button_about.grid(row=3, column=0, sticky="W", pady=1)
+
+    # TextArea
+
+        # Area textarea
+
+        textarea = tk.Text(master=area_frame, width=SCREEN_WIDTH, height=SCREEN_WIDTH)
+        textarea.pack()
+
+    # Labels
+
+        # Tabs labels
+
 
     def removethis(self):
         self.frame.destroy()
