@@ -2,6 +2,8 @@ import tkinter as tk
 import os
 from tkinter import filedialog
 
+GLOBAL_COUNTER = 0
+
 class GUI:
     
     def __init__(self, root):
@@ -9,7 +11,7 @@ class GUI:
         self.root = root
         # self.root.state("zoomed")
         self.root.geometry("750x250")
-        self.root.title("Text Editor: DEMO")
+        self.root.title("Tt-Edit: BETA")
         self.root.configure(bg="#e0e0e0")
 
     #  Getting screen sizes
@@ -21,22 +23,26 @@ class GUI:
         # Open file system
 
         def button_open_h():
+            global GLOBAL_COUNTER
             file_path = filedialog.askopenfilename()
             if not file_path:
                 return
-            textarea.delete("1.0", tk.END)
             file_text = open(file_path, "r")
-            textarea.insert(tk.END, file_text.read())
+            create_area(file_text)
             file_text.close()
             file_name = os.path.basename(file_path) # os.path.basename()
-            create_tab(file_name)
+            tab = create_tab(file_name, GLOBAL_COUNTER)
+            tab.destroy()
+            GLOBAL_COUNTER += 1
             self.root.title(file_name)
 
         # New file system
 
         def button_new_h():
-            textarea.delete("1.0", tk.END)
-            create_tab("New file")
+            global GLOBAL_COUNTER
+            create_area()
+            create_tab("New file", GLOBAL_COUNTER)
+            GLOBAL_COUNTER += 1
             self.root.title("New File")
 
         # Save file system
@@ -68,9 +74,21 @@ class GUI:
 
         # Create Tab
 
-        def create_tab(tab_name):
+        def create_tab(tab_name, position):
 
-            tk.Label(master=tab_frame, text=tab_name, foreground="black", background="#d7dbe0", width=10).grid(row=0, column=0, padx=1)
+            label = tk.Label(master=tab_frame, text=tab_name, foreground="black", background="#d7dbe0", width=20)
+            label.grid(row=0, column=position, padx=1)
+            return label
+
+        # Create Area
+
+        def create_area(file_text=None):
+
+            textarea = tk.Text(master=area_frame, width=SCREEN_WIDTH, height=SCREEN_HEIGHT)
+            if file_text != None:
+                textarea.insert(tk.END, file_text.read())
+            textarea.pack()
+
 
     # Frames
 
@@ -114,13 +132,8 @@ class GUI:
 
         # Area textarea
 
-        textarea = tk.Text(master=area_frame, width=SCREEN_WIDTH, height=SCREEN_WIDTH)
-        textarea.pack()
-
-    # Labels
-
-        # Tabs labels
-
+        # textarea = tk.Text(master=area_frame, width=SCREEN_WIDTH, height=SCREEN_WIDTH)
+        # textarea.pack()
 
     def removethis(self):
         self.frame.destroy()
