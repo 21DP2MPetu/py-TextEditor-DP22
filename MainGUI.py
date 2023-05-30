@@ -10,18 +10,15 @@ class GUI:
     def __init__(self, root):
     # Attributes
         self.root = root
-        # self.root.state("zoomed")
-        self.root.geometry("1600x900")
-        self.root.title("Tt-Edit: BETA")
-        self.root.configure(bg="#e0e0e0")
+        root.geometry("1600x900")
+        root.title("Tt-Edit: BETA")
+        root.configure(bg="#e0e0e0")
 
-        photo = tk.PhotoImage(file = "icon.png")
-        self.root.iconphoto(False, photo)
-
-        # window = tk.Toplevel(self.root)
-        # window.mainloop()
+        photo = tk.PhotoImage(file = "icons/icon.png")
+        root.iconphoto(False, photo)
 
     #  Getting screen sizes
+
         SCREEN_HEIGHT = self.root.winfo_screenheight()
         SCREEN_WIDTH = self.root.winfo_screenwidth()
 
@@ -42,12 +39,12 @@ class GUI:
             PATH_ARRAY.append(file_path)
             file_text = open(file_path, "r")
             textarea.delete("1.0", tk.END)
+            print(file_text)
             create_area(file_text)
             file_text.close()
             file_name = os.path.basename(file_path) # os.path.basename()
             tab = create_tab(file_name, GLOBAL_COUNTER)
             GLOBAL_COUNTER += 1
-            # self.root.title(file_name)
 
         # New file system
 
@@ -56,7 +53,6 @@ class GUI:
             create_area()
             create_tab("New file", GLOBAL_COUNTER)
             GLOBAL_COUNTER += 1
-            # self.root.title("New file")
 
         # Save file system
 
@@ -75,12 +71,9 @@ class GUI:
             root = tk.Tk()
             root.title("About: Tt-Edit")
             root.geometry("400x400")
-            # photo = tk.PhotoImage(file = "icon.png")
-            # root.iconphoto(False, photo)
 
             about0 = tk.Label(root, text="Name: Tt-Edit")
             about1 = tk.Label(root, text="Version: Beta")
-            # about2 = tk.Label(root, text="Year: 2023 (placeholder:Copyright © 2023)")
             about3 = tk.Label(root, text="Year: 2023")
             about4 = tk.Label(root, text="################")
             about5 = tk.Label(root, text="")
@@ -93,7 +86,6 @@ class GUI:
             about11 = tk.Label(root, text="################")
             about0.pack()
             about1.pack()
-            # about2.pack()
             about3.pack()
             about4.pack()
             about5.pack()
@@ -130,7 +122,10 @@ class GUI:
 
         def create_area(file_text=None):
             if file_text != None:
-                textarea.insert(tk.END, file_text.read())
+                try:
+                    textarea.insert(tk.END, file_text.read())
+                except:
+                    pass
             else:
                 textarea.delete("1.0", tk.END)
 
